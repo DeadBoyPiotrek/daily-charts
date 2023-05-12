@@ -1,20 +1,19 @@
 import { dateFormat } from '@/lib/helpers/dateFormat';
 import { DailyChart } from './components/dailyChart';
 
-const chartData = [
-  ['2023-04-01T00:00:00', 9721, 1, -2],
-  ['2023-04-01T00:00:00', 8386, 1, 2],
-  ['2023-04-01T00:00:00', 5260, 1, 0],
-  ['2023-04-01T00:00:00', 849, 1, 1],
-  ['2023-04-01T00:00:00', 22, 1, -1],
-];
+// get data from test.json that only contains json object
+import chartData from '../../test.json';
 
+const rows = chartData.rows;
+const labels = rows
+  .filter((row, index) => index % 5 === 0)
+  .map(row => dateFormat(row[0]));
 const data = {
-  labels: chartData.map(arr => dateFormat(arr[0])),
+  labels: labels,
   datasets: [
     {
       label: 'Seconds',
-      data: chartData.map(arr => arr[1]),
+      data: rows.map(arr => arr[3]),
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1,
