@@ -1,0 +1,29 @@
+{
+  "notes": "data is an array of arrays (rows), column names for rows in row_headers",
+  "row_headers": [
+    "Date",
+    "Time Spent (seconds)",
+    "Number of People",
+    "Category"
+  ],
+  "rows": [
+    ["2023-04-01T00:00:00", 8752, 1, "Entertainment"],
+    ["2023-04-01T00:00:00", 7044, 1, "Software Development"],
+    ["2023-04-01T00:00:00", 2325, 1, "Communication & Scheduling"],
+    ["2023-04-01T00:00:00", 2257, 1, "Utilities"],
+    ["2023-04-01T00:00:00", 1960, 1, "Reference & Learning"],
+    ["2023-04-01T00:00:00", 1001, 1, "Social Networking"],
+    ["2023-04-01T00:00:00", 638, 1, "Uncategorized"],
+    ["2023-04-01T00:00:00", 173, 1, "Business"],
+    ["2023-04-01T00:00:00", 88, 1, "Shopping"],
+    ["2023-04-02T00:00:00", 13224, 1, "Entertainment"],
+    ["2023-04-02T00:00:00", 1620, 1, "Social Networking"],
+    ["2023-04-02T00:00:00", 962, 1, "Utilities"],
+    ["2023-04-02T00:00:00", 910, 1, "Uncategorized"],
+    ["2023-04-02T00:00:00", 817, 1, "Communication & Scheduling"],
+    ["2023-04-02T00:00:00", 501, 1, "Reference & Learning"],
+    ["2023-04-02T00:00:00", 109, 1, "Shopping"],
+    ["2023-04-02T00:00:00", 7, 1, "Software Development"],
+    ["2023-04-02T00:00:00", 2, 1, "News & Opinion"]
+  ]
+}
