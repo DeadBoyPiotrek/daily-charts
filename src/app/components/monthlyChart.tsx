@@ -5,10 +5,12 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  Legend,
+  Tooltip,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Legend, Tooltip);
 
 const options = {
   responsive: true,

@@ -11,7 +11,9 @@ export const getMonthStats = async () => {
     );
     const data = await response.json();
     rows = data.rows;
-  } catch (error) {}
+  } catch (error) {
+    console.log(`🚀 ~ getDailyStats ~ error`, error);
+  }
 
   const days = rows
     .filter((row, index) => index % 5 === 0)
@@ -19,27 +21,27 @@ export const getMonthStats = async () => {
 
   const datasets = [
     {
-      label: 'very distracted',
+      label: 'Very Distracted 💀',
       data: [],
       backgroundColor: '#D61800',
     },
     {
-      label: 'distracted',
+      label: 'Distracted 🗿',
       data: [],
       backgroundColor: '#DC685A',
     },
     {
-      label: 'neutral',
+      label: 'Neutral 🤨',
       data: [],
       backgroundColor: '#B1C1BF',
     },
     {
-      label: 'productive',
+      label: 'Productive 😎',
       data: [],
       backgroundColor: '#3D80E0',
     },
     {
-      label: 'very productive',
+      label: 'Very Productive 🤩',
       data: [],
       backgroundColor: '#0055C4',
     },
