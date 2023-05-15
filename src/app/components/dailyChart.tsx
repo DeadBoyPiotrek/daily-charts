@@ -32,5 +32,9 @@ export const DailyChart = ({ chartData }: { chartData: any }) => {
     labels: chartData.labels,
     datasets: chartData.datasets,
   };
-  return <Doughnut data={data} options={options} />;
+  return (
+    <div className="max-w-[700px] w-full mb-28 ">
+      <Doughnut data={data} options={options} />
+    </div>
+  );
 };

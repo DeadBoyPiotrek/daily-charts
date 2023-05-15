@@ -12,7 +12,7 @@ export const getMonthStats = async () => {
     const data = await response.json();
     rows = data.rows;
   } catch (error) {
-    console.log(`🚀 ~ getDailyStats ~ error`, error);
+    console.log(`🚀 ~ getMonthStats ~ error`, error);
   }
 
   const days = rows
