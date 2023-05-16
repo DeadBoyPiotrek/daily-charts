@@ -20,6 +20,20 @@ const options = {
     },
     y: {
       stacked: true,
+      ticks: {
+        callback: function (value: number) {
+          return Math.abs(value) + 'h';
+        },
+      },
+    },
+  },
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: function (context: any) {
+          return Math.abs(context.raw) + ' h';
+        },
+      },
     },
   },
 };

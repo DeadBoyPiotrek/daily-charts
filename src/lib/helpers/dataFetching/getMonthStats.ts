@@ -1,13 +1,21 @@
-import { dateFormat } from './dateFormat';
-import { secondsToHours } from './secondsToHours';
+import { dateFormatToDays } from '../date/dateFormatToDays';
+import { secondsToHours } from '../secondsToHours';
+import { getDateRange } from '../date/getDateRange';
 
 export const getMonthStats = async () => {
   const rescuetime_api_key = process.env.RESCUETIME_API_KEY;
 
+  const [begin, end] = getDateRange(30);
+
   let rows;
   try {
     const response = await fetch(
-      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=2023-04-01&restrict_end=2023-04-30&format=json`
+      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
+      {
+        next: {
+          revalidate: 60,
+        },
+      }
     );
     const data = await response.json();
     rows = data.rows;
@@ -17,7 +25,7 @@ export const getMonthStats = async () => {
 
   const days = rows
     .filter((row, index) => index % 5 === 0)
-    .map(row => dateFormat(row[0]));
+    .map(row => dateFormatToDays(row[0]));
 
   const datasets = [
     {

@@ -3,7 +3,12 @@ export const getDailyStats = async () => {
   let yesterdayData;
   try {
     const response = await fetch(
-      `https://www.rescuetime.com/anapi/daily_summary_feed?key=${rescuetime_api_key}`
+      `https://www.rescuetime.com/anapi/daily_summary_feed?key=${rescuetime_api_key}`,
+      {
+        next: {
+          revalidate: 60,
+        },
+      }
     );
     const data = await response.json();
     yesterdayData = data[0];
@@ -42,7 +47,6 @@ export const getDailyStats = async () => {
     yesterdayData.productive_duration_formatted,
     yesterdayData.very_productive_duration_formatted,
   ];
-  console.log(`🚀 ~ getDailyStats ~ dataInHours:`, dataInHours);
 
   return {
     labels,
