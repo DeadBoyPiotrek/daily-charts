@@ -1,16 +1,9 @@
 'use client';
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Legend,
-  Tooltip,
-} from 'chart.js';
+import { Chart as ChartJS, BarElement, Legend, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Legend, Tooltip);
+ChartJS.register(BarElement, Legend, Tooltip);
 
 const options = {
   responsive: true,
@@ -30,7 +23,7 @@ const options = {
   plugins: {
     tooltip: {
       callbacks: {
-        label: function (context: any) {
+        label: function (context) {
           return Math.abs(context.raw) + ' h';
         },
       },

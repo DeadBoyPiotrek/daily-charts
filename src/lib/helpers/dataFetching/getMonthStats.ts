@@ -1,13 +1,19 @@
 import { dateFormatToDays } from '../date/dateFormatToDays';
-import { secondsToHours } from '../secondsToHours';
+import { secondsToHours } from '../date/secondsToHours';
 import { getDateRange } from '../date/getDateRange';
 
+type Row = [string, number, number, number];
+type Dataset = {
+  label: string;
+  data: number[];
+  backgroundColor: string;
+};
 export const getMonthStats = async () => {
   const rescuetime_api_key = process.env.RESCUETIME_API_KEY;
 
   const [begin, end] = getDateRange(30);
 
-  let rows;
+  let rows: Row[] = [];
   try {
     const response = await fetch(
       `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
@@ -24,10 +30,10 @@ export const getMonthStats = async () => {
   }
 
   const days = rows
-    .filter((row, index) => index % 5 === 0)
+    .filter((row, index: number) => index % 5 === 0)
     .map(row => dateFormatToDays(row[0]));
 
-  const datasets = [
+  const datasets: Dataset[] = [
     {
       label: 'Very Distracted 💀',
       data: [],
