@@ -1,5 +1,5 @@
 'use client';
-
+import { secondsToHoursAndMins } from '@/lib/helpers/date/secondsToHoursAndMins';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,14 +7,31 @@ import {
   Legend,
   Tooltip,
   ArcElement,
+  Colors,
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, Legend, Tooltip, ArcElement);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip,
+  ArcElement,
+  Colors
+);
 
 export const DailyChart = ({ chartData }: { chartData: any }) => {
   const options = {
     responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return secondsToHoursAndMins(context.raw);
+          },
+        },
+      },
+    },
   };
 
   const data = {
@@ -24,7 +41,9 @@ export const DailyChart = ({ chartData }: { chartData: any }) => {
   return (
     <div className="max-w-[700px] w-full mb-28 ">
       <Doughnut data={data} options={options} />
-      <h2 className="text-center text-5xl pt-10">Today</h2>
+      <h2 className="text-center text-5xl pt-10 font-bold text-gray-500 ">
+        TODAY
+      </h2>
     </div>
   );
 };
