@@ -32,5 +32,10 @@ const options = {
 };
 
 export const MonthlyChart = ({ chartData }: { chartData: any }) => {
-  return <Bar data={chartData} options={options} />;
+  return (
+    <>
+      <Bar data={chartData} options={options} />
+      <h2 className="text-center text-5xl pt-10">This Month</h2>
+    </>
+  );
 };

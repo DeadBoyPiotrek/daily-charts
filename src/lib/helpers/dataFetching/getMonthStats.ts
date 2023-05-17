@@ -2,7 +2,7 @@ import { dateFormatToDays } from '../date/dateFormatToDays';
 import { secondsToHours } from '../date/secondsToHours';
 import { getDateRange } from '../date/getDateRange';
 
-type Row = [string, number, number, number];
+type Row = [string, number, 1, -2 | -1 | 0 | 1 | 2];
 type Dataset = {
   label: string;
   data: number[];
@@ -11,15 +11,14 @@ type Dataset = {
 export const getMonthStats = async () => {
   const rescuetime_api_key = process.env.RESCUETIME_API_KEY;
 
-  const [begin, end] = getDateRange(30);
-
   let rows: Row[] = [];
   try {
+    const [begin, end] = getDateRange(16);
     const response = await fetch(
       `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
       {
         next: {
-          revalidate: 60,
+          revalidate: 10,
         },
       }
     );
@@ -29,9 +28,9 @@ export const getMonthStats = async () => {
     console.log(`🚀 ~ getMonthStats ~ error`, error);
   }
 
-  const days = rows
-    .filter((row, index: number) => index % 5 === 0)
-    .map(row => dateFormatToDays(row[0]));
+  const days = [
+    ...new Set(rows.map(item => dateFormatToDays(item[0].split('T')[0]))),
+  ];
 
   const datasets: Dataset[] = [
     {
@@ -60,8 +59,17 @@ export const getMonthStats = async () => {
       backgroundColor: '#0055C4',
     },
   ];
-
+  let day = rows[0][0];
   for (let i = 0; i < rows.length; i++) {
+    if (rows[i][0] !== day) {
+      for (let j = 0; j < datasets.length; j++) {
+        const max = Math.max(...datasets.map(item => item.data.length));
+        if (datasets[j].data.length < max) {
+          datasets[j].data.push(0);
+        }
+      }
+    }
+    day = rows[i][0];
     switch (rows[i][3]) {
       case 2:
         datasets[4].data.push(secondsToHours(rows[i][1]));
@@ -80,7 +88,6 @@ export const getMonthStats = async () => {
         break;
     }
   }
-
   return {
     labels: days,
     datasets,
