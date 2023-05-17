@@ -26,7 +26,8 @@ export const DailyChart = ({ chartData }: { chartData: any }) => {
     plugins: {
       tooltip: {
         callbacks: {
-          label: function (context) {
+          //TODO: fix this
+          label: function (context: any) {
             return secondsToHoursAndMins(context.raw);
           },
         },

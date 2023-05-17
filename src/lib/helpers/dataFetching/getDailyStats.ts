@@ -21,7 +21,7 @@ const neatColors = [
 
 export const getDailyStats = async () => {
   const rescuetime_api_key = process.env.RESCUETIME_API_KEY;
-  let yesterdayData: Row[];
+  let yesterdayData: Row[] = [];
 
   const [begin, end] = getDateRange(0);
 

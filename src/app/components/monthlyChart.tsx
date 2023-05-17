@@ -24,7 +24,8 @@ const options = {
   plugins: {
     tooltip: {
       callbacks: {
-        label: function (context) {
+        //TODO: fix this
+        label: function (context: any) {
           return secondsToHoursAndMins(context.raw * 3600);
         },
       },
@@ -35,6 +36,8 @@ const options = {
 export const MonthlyChart = ({ chartData }: { chartData: any }) => {
   return (
     <>
+      {/* TODO: fix this  */}
+      {/* @ts-ignore */}
       <Bar data={chartData} options={options} />
       <h2 className="text-center text-5xl pt-10 font-bold text-gray-500 ">
         THIS MONTH
