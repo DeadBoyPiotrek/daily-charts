@@ -18,10 +18,12 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: #0f2027;
+  background: -webkit-linear-gradient(to top, #203a43, #0f2027);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to top,
+
+    #203a43,
+    #0f2027
+  );
 }

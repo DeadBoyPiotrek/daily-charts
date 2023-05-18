@@ -1,12 +1,24 @@
 'use client';
 
 import { secondsToHoursAndMins } from '@/lib/helpers/date/secondsToHoursAndMins';
-import { Chart as ChartJS, BarElement, Legend, Tooltip } from 'chart.js';
+import {
+  Chart as ChartJS,
+  BarElement,
+  Legend,
+  Tooltip,
+  TooltipItem,
+  ChartOptions,
+} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+
+type ChartData = {
+  labels: string[];
+  datasets: { label: string; data: number[]; backgroundColor: string }[];
+};
 
 ChartJS.register(BarElement, Legend, Tooltip);
 
-const options = {
+const options: ChartOptions<'bar'> = {
   responsive: true,
   scales: {
     x: {
@@ -15,8 +27,8 @@ const options = {
     y: {
       stacked: true,
       ticks: {
-        callback: function (value: number) {
-          return Math.abs(value) + 'h';
+        callback: value => {
+          return Math.abs(value as number) + 'h';
         },
       },
     },
@@ -24,20 +36,19 @@ const options = {
   plugins: {
     tooltip: {
       callbacks: {
-        //TODO: fix this
-        label: function (context: any) {
-          return secondsToHoursAndMins(context.raw * 3600);
+        label: (context: TooltipItem<'bar'>) => {
+          return secondsToHoursAndMins(
+            Math.abs((context.raw as number) * 3600)
+          );
         },
       },
     },
   },
 };
 
-export const MonthlyChart = ({ chartData }: { chartData: any }) => {
+export const MonthlyChart = ({ chartData }: { chartData: ChartData }) => {
   return (
     <>
-      {/* TODO: fix this  */}
-      {/* @ts-ignore */}
       <Bar data={chartData} options={options} />
       <h2 className="text-center text-5xl pt-10 font-bold text-gray-500 ">
         THIS MONTH

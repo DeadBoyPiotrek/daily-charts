@@ -1,11 +1,7 @@
 import { getDateRange } from '../date/getDateRange';
 
 type Row = [string, number, 1, string];
-type Dataset = {
-  label: string;
-  data: number[];
-  backgroundColor: string;
-};
+
 const neatColors = [
   '#003f5c',
   '#2f4b7c',
@@ -41,7 +37,6 @@ export const getDailyStats = async () => {
   }
 
   const labels = yesterdayData.map(row => row[3]);
-  console.log(`🚀 ~ getDailyStats ~ labels:`, labels);
 
   const datasets = [
     {

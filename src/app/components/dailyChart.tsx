@@ -8,6 +8,7 @@ import {
   Tooltip,
   ArcElement,
   Colors,
+  ChartOptions,
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -20,28 +21,34 @@ ChartJS.register(
   Colors
 );
 
-export const DailyChart = ({ chartData }: { chartData: any }) => {
-  const options = {
+type ChartData = {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string[];
+    borderColor: string[];
+    borderWidth: number;
+  }[];
+};
+
+export const DailyChart = ({ chartData }: { chartData: ChartData }) => {
+  const options: ChartOptions<'doughnut'> = {
     responsive: true,
     plugins: {
       tooltip: {
         callbacks: {
-          //TODO: fix this
-          label: function (context: any) {
-            return secondsToHoursAndMins(context.raw);
+          label: function (context) {
+            return secondsToHoursAndMins(context.raw as number);
           },
         },
       },
     },
   };
 
-  const data = {
-    labels: chartData.labels,
-    datasets: chartData.datasets,
-  };
   return (
     <div className="max-w-[700px] w-full mb-28 ">
-      <Doughnut data={data} options={options} />
+      <Doughnut data={chartData} options={options} />
       <h2 className="text-center text-5xl pt-10 font-bold text-gray-500 ">
         TODAY
       </h2>
