@@ -16,11 +16,7 @@ export const getMonthStats = async () => {
     const [begin, end] = getDateRange(30);
     const response = await fetch(
       `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
-      {
-        next: {
-          revalidate: 10,
-        },
-      }
+      { cache: 'no-store' }
     );
     const data = await response.json();
     rows = data.rows;
