@@ -3,7 +3,7 @@ import { getDateRange } from '../date/getDateRange';
 type Row = [string, number, 1, string];
 
 const neatColors = [
-  '#003f5c',
+  '#1c6e9b',
   '#2f4b7c',
   '#665191',
   '#a05195',
@@ -12,7 +12,8 @@ const neatColors = [
   '#ff7c43',
   '#ffa600',
   '#b4b63a',
-  '#e94747',
+  '#bdb9be',
+  '#f2f2f2',
 ];
 
 export const getDailyStats = async () => {
@@ -23,10 +24,7 @@ export const getDailyStats = async () => {
 
   try {
     const response = await fetch(
-      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=overviews&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
-      {
-        cache: 'no-store',
-      }
+      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=overviews&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`
     );
     const data = await response.json();
     yesterdayData = data.rows;

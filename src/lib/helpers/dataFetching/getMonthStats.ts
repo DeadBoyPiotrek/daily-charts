@@ -15,18 +15,18 @@ export const getMonthStats = async () => {
   try {
     const [begin, end] = getDateRange(30);
     const response = await fetch(
-      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`,
-      { cache: 'no-store' }
+      `https://www.rescuetime.com/anapi/data?key=${rescuetime_api_key}&perspective=interval&restrict_kind=productivity&interval=day&restrict_begin=${begin}&restrict_end=${end}&format=json`
     );
+
     const data = await response.json();
     rows = data.rows;
   } catch (error) {
     console.log(`🚀 ~ getMonthStats ~ error`, error);
   }
 
-  const days = [
-    ...new Set(rows.map(item => dateFormatToDays(item[0].split('T')[0]))),
-  ];
+  const days =
+    [...new Set(rows.map(item => dateFormatToDays(item[0].split('T')[0])))] ??
+    [];
 
   const datasets: Dataset[] = [
     {
